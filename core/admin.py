@@ -4,7 +4,7 @@ from .models import Housing, RoomType, Offering, Review
 
 
 class HousingAdmin(admin.ModelAdmin):
-    list_display = ["id", "address"]
+    list_display = ["id", "name", "address"]
     ordering = ["id"]
 
 class RoomTypeAdmin(admin.ModelAdmin):
