@@ -4,6 +4,7 @@ from django.db import models
 
 class Housing(models.Model):
     id = models.AutoField(primary_key=True)
+    name = models.TextField(max_length=50)
     address = models.TextField(max_length=150)
 
 class RoomType(models.Model):
