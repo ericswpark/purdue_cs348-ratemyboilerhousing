@@ -1,3 +1,25 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Housing, RoomType, Offering, Review
+
+
+class HousingAdmin(admin.ModelAdmin):
+    list_display = ["id", "address"]
+    ordering = ["id"]
+
+class RoomTypeAdmin(admin.ModelAdmin):
+    list_display = ["id", "friendly_name", "bedroom_count", "bathroom_count"]
+    ordering = ["id"]
+    save_as = True
+
+class OfferingAdmin(admin.ModelAdmin):
+    pass
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Housing, HousingAdmin)
+admin.site.register(RoomType, RoomTypeAdmin)
+admin.site.register(Offering, OfferingAdmin)
+admin.site.register(Review, ReviewAdmin)
