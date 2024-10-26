@@ -9,7 +9,7 @@ User(<u>user_id</u>, name, email)
 
 Housing(<u>housing_id</u>, address)
 
-RoomType(<u>roomtype_id</u>, friendly_name)
+RoomType(<u>roomtype_id</u>, friendly_name, bedroom_count, bathroom_count)
 
 Offering(<u>offering_id</u>, housing_id, roomtype_id, cost)
 
