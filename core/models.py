@@ -35,6 +35,8 @@ class Review(models.Model):
     id = models.AutoField(primary_key=True)
     offering = models.ForeignKey(Offering, related_name="reviews", on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), related_name="reviews", on_delete=models.CASCADE)
+    stars = models.IntegerField(default=10, validators=[MinValueValidator(1), MaxValueValidator(10)], help_text="Number of stars in half star increments (for example, 5 stars is 10, while 2 and a half stars is 5)")
+    description = models.TextField(max_length=3000)
 
     def __str__(self):
         return f"{self.user} - {self.offering}"
