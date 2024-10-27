@@ -1,6 +1,8 @@
-from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView
 
-from core.models import Housing, Offering
+from core.models import Housing, Offering, Review
 
 
 class HomeView(ListView):
@@ -15,3 +17,22 @@ class HousingView(DetailView):
 class OfferingView(DetailView):
     template_name = "offering.html"
     model = Offering
+
+class CreateReviewView(LoginRequiredMixin, CreateView):
+    template_name = "create_review.html"
+    model = Review
+    fields = ['stars', 'description']
+
+    def form_valid(self, form):
+        offering_id = self.kwargs['pk']
+
+        offering = Offering.objects.get(pk=offering_id)
+        form.instance.offering = offering
+
+        form.instance.user = self.request.user
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        offering_id = self.kwargs['pk']
+        return reverse('offering_detail', kwargs={'pk': offering_id})

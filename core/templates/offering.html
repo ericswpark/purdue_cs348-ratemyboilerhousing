@@ -5,6 +5,10 @@
 {% block content %}
 <h2>Reviews for {{ object }}</h2>
 
+<button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'offering_write_review' object.id %}'">
+    <i class="bi bi-pencil-square"></i> Write your own review
+</button>
+
 {% if object.has_reviews %}
     {% for review in object.reviews.all %}
         <div class="col-md-4">
