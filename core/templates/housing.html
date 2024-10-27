@@ -15,15 +15,15 @@
 {% block content %}
 <h1>RateMyBoilerHousing</h1>
 
-<h2>Housing Options</h2>
+<h2>Offerings for {{ object }}</h2>
 
-{% for housing in housing_options %}
+{% for offering in object.offerings.all %}
     <div class="col-md-4">
-        <a href="{% url 'housing_detail' housing.id %}" class="text-decoration-none text-dark">
+        <a href="" class="text-decoration-none text-dark">
             <div class="card mb-4 card-hover">
                 <div class="card-body">
-                    <h5 class="card-title">{{ housing.name }}</h5>
-                    <p class="card-text">{{ housing.address }}</p>
+                    <h5 class="card-title">{{ offering }}</h5>
+                    <p class="card-text">{{ offering.get_formatted_cost }}</p>
                 </div>
             </div>
         </a>
