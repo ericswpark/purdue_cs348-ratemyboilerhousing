@@ -45,3 +45,6 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.user}'s review on {self.offering} ({self.created_at})"
+
+    def get_normalized_star_count(self):
+        return self.stars / 2

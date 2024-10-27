@@ -9,7 +9,7 @@
 
 {% for offering in object.offerings.all %}
     <div class="col-md-4">
-        <a href="" class="text-decoration-none text-dark">
+        <a href="{% url 'offering_detail' offering.id %}" class="text-decoration-none text-dark">
             <div class="card mb-4 card-hover">
                 <div class="card-body">
                     <h5 class="card-title">{{ offering }}</h5>

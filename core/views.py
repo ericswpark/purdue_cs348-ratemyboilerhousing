@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView
 
-from core.models import Housing
+from core.models import Housing, Offering
 
 
 class HomeView(ListView):
@@ -11,3 +11,7 @@ class HomeView(ListView):
 class HousingView(DetailView):
     template_name = "housing.html"
     model = Housing
+
+class OfferingView(DetailView):
+    template_name = "offering.html"
+    model = Offering
