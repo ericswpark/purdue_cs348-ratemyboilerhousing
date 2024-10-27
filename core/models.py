@@ -28,6 +28,9 @@ class Offering(models.Model):
     def get_formatted_cost(self):
         return f"${self.cost / 100}"
 
+    def get_review_count(self):
+        return self.reviews.count()
+
     def __str__(self):
         return f"{self.housing} - {self.room_type} - {self.get_formatted_cost()}"
 
