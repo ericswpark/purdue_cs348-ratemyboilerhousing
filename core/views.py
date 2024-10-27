@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from core.models import Housing, Offering, Review
 
@@ -36,3 +36,20 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         offering_id = self.kwargs['pk']
         return reverse('offering_detail', kwargs={'pk': offering_id})
+
+class EditReviewView(LoginRequiredMixin, UpdateView):
+    template_name = "edit_review.html"
+    model = Review
+    fields = ['stars', 'description']
+
+    def get_success_url(self):
+        offering = self.object.offering
+        return reverse('offering_detail', kwargs={'pk': offering.id})
+
+class DeleteReviewView(LoginRequiredMixin, DeleteView):
+    model = Review
+    template_name = "delete_review.html"
+
+    def get_success_url(self):
+        offering = self.object.offering
+        return reverse('offering_detail', kwargs={'pk': offering.id})
