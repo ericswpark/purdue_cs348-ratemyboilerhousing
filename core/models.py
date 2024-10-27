@@ -31,6 +31,9 @@ class Offering(models.Model):
     def get_review_count(self):
         return self.reviews.count()
 
+    def has_reviews(self):
+        return self.get_review_count() > 0
+
     def __str__(self):
         return f"{self.housing} - {self.room_type} - {self.get_formatted_cost()}"
 

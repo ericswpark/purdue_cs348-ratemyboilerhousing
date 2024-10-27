@@ -5,18 +5,22 @@
 {% block content %}
 <h2>Reviews for {{ object }}</h2>
 
-{% for review in object.reviews.all %}
-    <div class="col-md-4">
-        <a class="text-decoration-none text-dark">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">{{ review.user.username }}'s review</h5>
-                    <p class="card-text">{{ review.get_normalized_star_count }} stars</p>
-                    <p class="card-text">{{ review.description }}</p>
+{% if object.has_reviews %}
+    {% for review in object.reviews.all %}
+        <div class="col-md-4">
+            <a class="text-decoration-none text-dark">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ review.user.username }}'s review</h5>
+                        <p class="card-text">{{ review.get_normalized_star_count }} stars</p>
+                        <p class="card-text">{{ review.description }}</p>
+                    </div>
                 </div>
-            </div>
-        </a>
-    </div>
-{% endfor %}
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>This housing offering doesn't have any reviews. Why don't you write one?</p>
+{% endif %}
 
 {% endblock %}
