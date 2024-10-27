@@ -18,6 +18,14 @@ class OfferingView(DetailView):
     template_name = "offering.html"
     model = Offering
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if not self.request.user:
+            return False
+        user_has_review = Review.objects.filter(user=self.request.user, offering=self.object).exists()
+        context['user_has_review'] = user_has_review
+        return context
+
 class CreateReviewView(LoginRequiredMixin, CreateView):
     template_name = "create_review.html"
     model = Review
