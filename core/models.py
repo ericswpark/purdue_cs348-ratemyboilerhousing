@@ -57,7 +57,7 @@ class Review(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.user}'s review on {self.offering} ({self.created_at})"
+        return f"{self.user}'s review on {self.offering.housing} - {self.offering.room_type} - {self.created_at.strftime("%B %d, %Y")}"
 
     def get_normalized_star_count(self):
         return self.stars / 2
