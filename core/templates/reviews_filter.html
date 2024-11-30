@@ -50,6 +50,8 @@
                         <div class="card mb-4 card-hover">
                             <div class="card-body">
                                 <h5 class="card-title">{{ review }}</h5>
+                                <h6 class="">{{ review.get_normalized_star_count }} stars</h6>
+                                <h6 class="card-subtitle">{{ review.offering.get_formatted_cost }}</h6>
                                 <p class="card-text">{{ review.description }}</p>
                             </div>
                         </div>
