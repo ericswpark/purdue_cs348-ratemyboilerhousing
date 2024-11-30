@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.db.models import Min, Max
+
 
 class Housing(models.Model):
     id = models.AutoField(primary_key=True)
@@ -36,6 +38,14 @@ class Offering(models.Model):
 
     def __str__(self):
         return f"{self.housing} - {self.room_type} - {self.get_formatted_cost()}"
+
+    @classmethod
+    def get_min_cost(cls):
+        return cls.objects.aggregate(Min("cost"))["cost__min"]
+
+    @classmethod
+    def get_max_cost(cls):
+        return cls.objects.aggregate(Max("cost"))["cost__max"]
 
 class Review(models.Model):
     id = models.AutoField(primary_key=True)

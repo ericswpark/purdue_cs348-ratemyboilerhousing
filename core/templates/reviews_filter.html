@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}RateMyBoilerHousing{% endblock %}
+
+{% block content %}
+<h2>Reviews</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form method="get" action="{% url "reviews_filter" %}">
+                <h2>Price Range</h2>
+                <label>
+                    Min:
+                    <input type="number" name="price_min" min={{ price_abs_min }} max={{ price_abs_max }} value={{ price_min }} />
+                </label>
+                <label>
+                    Max:
+                    <input type="number" name="price_max" min={{ price_abs_min }} max={{ price_abs_max }} value={{ price_max }} />
+                </label>
+
+                <h2>Stars</h2>
+
+                <label>
+                    <input type="radio" name="stars" value="5" {% if stars == '5' %}checked{% endif %} /> <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </label><br>
+                <label>
+                    <input type="radio" name="stars" value="4" {% if stars == '4' %}checked{% endif %}/> <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                </label><br>
+                <label>
+                    <input type="radio" name="stars" value="3" {% if stars == '3' %}checked{% endif %}/> <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                </label><br>
+                <label>
+                    <input type="radio" name="stars" value="2" {% if stars == '2' %}checked{% endif %}/> <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                </label><br>
+                <label>
+                    <input type="radio" name="stars" value="1" {% if stars == '1' %}checked{% endif %}/> <i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                </label><br>
+
+                <br>
+
+                <input type="submit" value="Refine search">
+            </form>
+        </div>
+
+        <div class="col-8">
+            {% for review in object_list %}
+                <div class="col" title="Click here to go to the offering associated with this review">
+                    <a href="{% url 'offering_detail' review.offering.id %}" class="text-decoration-none text-dark">
+                        <div class="card mb-4 card-hover">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ review }}</h5>
+                                <p class="card-text">{{ review.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

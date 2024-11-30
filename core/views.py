@@ -10,6 +10,33 @@ class HomeView(ListView):
     model = Housing
     context_object_name = "housing_options"
 
+class ReviewFilterView(ListView):
+    template_name = "reviews_filter.html"
+    model = Review
+
+    default_stars = 1
+
+    def get_queryset(self):
+        stars = self.request.GET.get('stars', self.default_stars)
+        price_min = self.request.GET.get('price_min', Offering.get_min_cost())
+        price_max = self.request.GET.get('price_max', Offering.get_max_cost())
+        return Review.objects.filter(
+            stars__gte=(int(stars) - 1), # Dirty hack
+            offering__cost__gte=price_min,
+            offering__cost__lte=price_max
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewFilterView, self).get_context_data(**kwargs)
+        context['stars'] = self.request.GET.get('stars', self.default_stars)
+        context['price_min'] = self.request.GET.get('price_min', Offering.get_min_cost())
+        context['price_max'] = self.request.GET.get('price_max', Offering.get_max_cost())
+        context['price_abs_min'] = Offering.get_min_cost()
+        context['price_abs_max'] = Offering.get_max_cost()
+        return context
+
+
+
 class HousingView(DetailView):
     template_name = "housing.html"
     model = Housing
