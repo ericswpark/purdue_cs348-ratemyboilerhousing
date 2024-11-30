@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}RateMyBoilerHousing - Statistics{% endblock %}
+
+{% block content %}
+    <h2>Super secret admin statistics page</h2>
+
+    <p>Statistics for today ({{ stat_object.date }})</p>
+    <p>Generated on {{ stat_object.generated_at }}</p>
+
+    <h3>Users</h3>
+    <p>Count: {{ stat_object.user_count }}</p>
+
+    <h3>Housing</h3>
+    <p>Count: {{ stat_object.housing_count }}</p>
+
+    <h3>Offerings</h3>
+    <p>Count: {{ stat_object.offering_count }}</p>
+    <p>Cost average: ${{ stat_object.offering_cost_avg | floatformat:2 }}</p>
+    <p>Cost minimum: ${{ stat_object.offering_cost_min }}</p>
+    <p>Cost maximum: ${{ stat_object.offering_cost_max }}</p>
+
+    <h3>Reviews</h3>
+    <p>Count: {{ stat_object.review_count }}</p>
+    <p>Stars average: {{ stat_object.review_stars_avg | floatformat:2 }}</p>
+    <p>Stars minimum: {{ stat_object.review_stars_min }}</p>
+    <p>Stars maximum: {{ stat_object.review_stars_max }}</p>
+{% endblock %}

@@ -1,8 +1,10 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
-from core.models import Housing, Offering, Review
+from core.models import Housing, Offering, Review, Statistics
 
 
 class HomeView(ListView):
@@ -88,3 +90,13 @@ class DeleteReviewView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         offering = self.object.offering
         return reverse('offering_detail', kwargs={'pk': offering.id})
+
+
+@method_decorator(staff_member_required, name='dispatch')
+class AdminStatsView(TemplateView):
+    template_name = "admin_stats.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stat_object'] = Statistics.get_today_stats()
+        return context
