@@ -51,6 +51,11 @@ class Offering(models.Model):
     def get_max_cost(cls):
         return cls.objects.aggregate(Max("cost"))["cost__max"]
 
+    class Meta:
+        indexes = [
+            models.Index(fields=["cost"]),
+        ]
+
 class Review(models.Model):
     id = models.AutoField(primary_key=True)
     offering = models.ForeignKey(Offering, related_name="reviews", on_delete=models.CASCADE)
@@ -65,6 +70,12 @@ class Review(models.Model):
 
     def get_normalized_star_count(self):
         return self.stars / 2
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["stars"]),
+        ]
+
 
 class Statistics(models.Model):
     date = models.DateField(auto_now_add=True, primary_key=True)
