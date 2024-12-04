@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Housing, RoomType, Offering, Review
+from .models import Housing, RoomType, Offering, Review, Statistics
 
 
 class HousingAdmin(admin.ModelAdmin):
@@ -19,7 +19,13 @@ class OfferingAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     pass
 
+
+class StatisticsAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Housing, HousingAdmin)
 admin.site.register(RoomType, RoomTypeAdmin)
 admin.site.register(Offering, OfferingAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(Statistics, StatisticsAdmin)
