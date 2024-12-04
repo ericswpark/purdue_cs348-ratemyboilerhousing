@@ -23,7 +23,7 @@ class ReviewFilterView(ListView):
         price_min = self.request.GET.get('price_min', Offering.get_min_cost())
         price_max = self.request.GET.get('price_max', Offering.get_max_cost())
         return Review.objects.filter(
-            stars__gte=((int(stars) - 1) * 2), # Dirty hack
+            stars__gte=(int(stars) * 2), # Dirty hack
             offering__cost__gte=price_min,
             offering__cost__lte=price_max
         )
