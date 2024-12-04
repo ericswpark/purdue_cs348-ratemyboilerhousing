@@ -1,0 +1,13 @@
+
+runtime: python312
+env: standard
+
+env_variables:
+  APPENGINE_URL: https://purdue-park1246-cs348-proj.uw.r.appspot.com
+
+handlers:
+  - url: /static
+    static_dir: static/
+
+  - url: /.*
+    script: auto
